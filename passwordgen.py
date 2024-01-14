@@ -5,7 +5,9 @@
 # userpass = the password submitted by the user if they choose to use their own
 # appanswer = the site/app that the information is for
 
+from pyfiglet import figlet_format
 import random
+import keyboard
 
 uppercase_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 lowercase_letters = 'abcdefghijklmnopqrstuvwxyz'
@@ -14,61 +16,88 @@ symbols = '!#$.*()/?'
 
 length = 12
 
+userpass = ""
+
+nothing = ""
+
 string = uppercase_letters + lowercase_letters + digits + symbols
 
 password = "".join(random.sample(string,length))
 
-#Ask for app/website
-print('What Website/App Is This Information For?')
-appanswer = input('')
+repeatask = True
 
-#space
-print('')
+def header():
+    print( figlet_format("Hughy's  Password  Logger" , font = "Standard" , width = 300))
 
-#Ask for email
-print('What Is The Email?')
-emailanswer = input('')
+# want to use the cool text but it messes with exe, if find fix just add header() below to print it
 
-#space
-print('')
+while repeatask is True:
+    #Ask for app/website
+    print('What Website/App Is This Information For?')
+    appanswer = input('')
 
-#Ask for username
-print('What Is The Username?')
-usernameanswer = input('')
+    #space
+    print('-------------------------------------------------------------------------------------------------')
+    #Ask for email
+    print('What Is The Email?')
+    emailanswer = input('')
 
-# space
-print('')
+    #space
+    print('-------------------------------------------------------------------------------------------------')
 
-#Ask wether they want a password generated or not
-print('Would You Like A Password Generated For You? 1=YES 2=NO')
-passask = int(input(''))
+    #Ask for username
+    print('What Is The Username?')
+    usernameanswer = input('')
 
-# space
-print('')
+    # space
+    print('-------------------------------------------------------------------------------------------------')
 
-# print password
-if passask == 1:
-   print('Ok! Password Genorated!')
-   print('')
-   print(password)
-else:
-   print('Ok! Please Enter Desired Password!')
-   userpass = input('')
-   print('')
+    #Ask wether they want a password generated or not
+    print('Would You Like A Password Generated For You? | Type 1 For Yes | Type 2 For No')
+    passask = int(input(''))
 
-infoownpass = appanswer + " Login Information:\n\nEmail: " + emailanswer + "\nUsername: " + usernameanswer + "\nPassword: " + userpass
+    # space
+    print('-------------------------------------------------------------------------------------------------')
+    # print password
+    if passask == 1:
+      nothing
+    else:
+      print('Ok! Please Enter Desired Password!')
+      userpass = input('')
+      print('-------------------------------------------------------------------------------------------------')
 
-infogenpass = appanswer + " Login Information:\n\nEmail: " + emailanswer + "\nUsername: " + usernameanswer + "\nPassword: " + password
+    infoownpass = appanswer + " Login Information:\n\nEmail: " + emailanswer + "\nUsername: " + usernameanswer + "\nPassword: " + userpass
 
-if passask == 1:
-   print(infogenpass)
-   with open(appanswer + '.txt','w') as file:
-      file.write(infogenpass)
+    infogenpass = appanswer + " Login Information:\n\nEmail: " + emailanswer + "\nUsername: " + usernameanswer + "\nPassword: " + password
 
-else:
- print(infoownpass)
- with open(appanswer + '.txt','w') as file:
-    file.write(infoownpass)
+    if passask == 1:
+      print(infogenpass)
+      with open(appanswer + '.txt','w') as file:
+        file.write(infogenpass)
+        
+    else:
+      print(infoownpass)
+      with open(appanswer + '.txt','w') as file:
+        file.write(infoownpass)
+              
+    print('-------------------------------------------------------------------------------------------------')
+
+    # ask the user wether they want to enter another login info or exit the terminal
+    print('Information Saved | Type 1 To Enter More Information | Type 2 to Exit The Program')
+    anotherlog = int(input(''))
+
+    print('-------------------------------------------------------------------------------------------------')
+
+    if anotherlog == 1:
+      repeatask = True
+    elif anotherlog == 2:
+      repeatask = False
+    
+    if anotherlog is False:
+      exit()
+ 
+  
+    
 
 
 
